@@ -21,6 +21,8 @@ options = webdriver.ChromeOptions()
 options.add_argument(chrome_location)
 options.add_argument("--no-sand-box")
 options.add_argument("--start-maximised")
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
 
 # Connect to KenyaEMR
 driver = webdriver.Chrome(options)
