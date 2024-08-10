@@ -1,9 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import os
 from dotenv import load_dotenv
-from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 load_dotenv()
 
@@ -23,7 +25,7 @@ options.add_argument("--start-maximised")
 # Connect to KenyaEMR
 driver = webdriver.Chrome(options)
 driver.get(url)
-sleep(5)
+driver.implicitly_wait(5)
 
 # Navigate to username field
 username_field = driver.find_element(By.ID, "username")
@@ -38,13 +40,21 @@ password_field.click()
 password_field.send_keys(password)
 login_btn = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
 login_btn.click()
-sleep(5)
+driver.implicitly_wait(5)
 
 try:
-    status = driver.find_element(By.CSS_SELECTOR, "div[role='status']")
-    print("Invalid username or password")
-except NoSuchElementException:
+    xpath = '//*[@id="single-spa-application:@kenyaemr/esm-login-app-page-0"]/div/div[1]/div[1]/div/div/div/div[2]'
+    error_msg = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, xpath))).get_attribute("innerText")
+    error_msg = error_msg.strip()
+
+    # Confirm whether error message text is for invalid username or password
+    assert error_msg == "Invalid username or password"
+    print(error_msg)
+except (NoSuchElementException, TimeoutException):
     print("Login successful")
-sleep(5)
+except AssertionError:
+    print(f"Unexpected output: {error_msg}")
+
 
 driver.quit()
