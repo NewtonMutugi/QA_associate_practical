@@ -40,4 +40,4 @@ jobs:
         GOOGLE_CHROME_LOCATION: '/usr/local/bin/chrome'
       run: |
         # Pass the Chrome binary location to Selenium
-        python your_script_name.py
+        python task.py
