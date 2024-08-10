@@ -45,6 +45,6 @@ try:
     print("Invalid username or password")
 except NoSuchElementException:
     print("Login successful")
-sleep(10)
+sleep(5)
 
 driver.quit()
