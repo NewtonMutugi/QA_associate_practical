@@ -1,4 +1,4 @@
-name: OpenMRS Login automate Tests
+name: OpenMRS Automated login Tests
 
 on:
   push:
@@ -12,12 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      selenium:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -30,13 +24,20 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip3 install -r requirements.txt    
+        pip install selenium python-dotenv
+
+    - name: Download Chrome for Testing
+      run: |
+        wget -O chrome-linux.zip https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.99/linux64/chrome-linux64.zip
+        unzip chrome-linux.zip -d chrome-linux
+        mv chrome-linux/chrome-linux64/chrome /usr/local/bin/chrome
 
     - name: Run Selenium tests
       env:
         USER_NAME: ${{ secrets.USER_NAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
         URL: ${{ secrets.URL }}
-        GOOGLE_CHROME_LOCATION: '--headless --disable-gpu'
+        GOOGLE_CHROME_LOCATION: '/usr/local/bin/chrome'
       run: |
-        python task.py
+        # Pass the Chrome binary location to Selenium
+        python your_script_name.py
