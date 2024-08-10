@@ -39,4 +39,4 @@ jobs:
         URL: ${{ secrets.URL }}
         GOOGLE_CHROME_LOCATION: '--headless --disable-gpu'
       run: |
-        python tasks.py
+        python task.py
