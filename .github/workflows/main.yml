@@ -1,0 +1,43 @@
+name: OpenMRS Automated login Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install selenium python-dotenv
+
+    - name: Download Chrome for Testing
+      run: |
+        wget -O chrome-linux.zip https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.99/linux64/chrome-linux64.zip
+        unzip chrome-linux.zip -d chrome-linux
+        mv chrome-linux/chrome-linux64/chrome /usr/local/bin/chrome
+
+    - name: Run Selenium tests
+      env:
+        USER_NAME: ${{ secrets.USER_NAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        URL: ${{ secrets.URL }}
+        GOOGLE_CHROME_LOCATION: '/usr/local/bin/chrome'
+      run: |
+        # Pass the Chrome binary location to Selenium
+        python task.py
