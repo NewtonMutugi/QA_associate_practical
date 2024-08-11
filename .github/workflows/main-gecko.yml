@@ -43,4 +43,4 @@ jobs:
           URL: ${{ secrets.URL }}
           FIREFOX_LOCATION: '/usr/bin/firefox'
         run: |
-          python task-firefox.py
+          python task-gecko.py
