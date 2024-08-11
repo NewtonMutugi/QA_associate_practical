@@ -11,7 +11,9 @@ import HtmlTestRunner
 
 
 class TestChromeLogin(unittest.TestCase):
-
+    """
+        Test class for Chrome browser
+    """
     @classmethod
     def setUpClass(cls):
         load_dotenv()
