@@ -61,9 +61,10 @@ class TestGeckoLogin(unittest.TestCase):
 
         # Check for login success or failure
         try:
-            error_msg_xpath = '//*[@id="single-spa-application:@kenyaemr/esm-login-app-page-0"]/div/div[1]/div[1]/div/div/div/div[2]'
+            # error_msg_xpath = '//*[@id="single-spa-application:@kenyaemr/esm-login-app-page-0"]/div/div[1]/div[1]/div/div/div/div[2]'
             error_msg = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, error_msg_xpath))
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, ".cds--inline-notification__subtitle"))
             ).get_attribute("innerText").strip()
             self.assertEqual(
                 error_msg, "Invalid username or password", "Unexpected error message found")
