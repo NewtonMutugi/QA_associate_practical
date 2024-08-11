@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
+# Load environment variables
 load_dotenv()
 
 # Define variables
