@@ -1,4 +1,4 @@
-name: OpenMRS Automated login Tests with Chrome
+name: OpenMRS Automated login Tests using Chrome
 
 on:
   push:
