@@ -35,6 +35,7 @@ jobs:
           tar -xzf geckodriver-v0.35.0-linux64.tar.gz -C /usr/local/bin
           chmod +x /usr/local/bin/geckodriver
           sudo rm -rf /snap/bin/geckodriver
+          sudo snap remove firefox
       - name: Run Selenium tests
         env:
           USER_NAME: ${{ secrets.USER_NAME }}
