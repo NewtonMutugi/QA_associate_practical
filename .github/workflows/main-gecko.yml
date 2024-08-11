@@ -34,6 +34,7 @@ jobs:
           wget "https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz"
           tar -xzf geckodriver-v0.35.0-linux64.tar.gz -C /usr/local/bin
           chmod +x /usr/local/bin/geckodriver
+          snap remove geckodriver
       - name: Run Selenium tests
         env:
           USER_NAME: ${{ secrets.USER_NAME }}
