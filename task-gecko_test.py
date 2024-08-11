@@ -11,7 +11,9 @@ import HtmlTestRunner
 
 
 class TestGeckoLogin(unittest.TestCase):
-
+    """
+        Test class for Firefox browser
+    """
     @classmethod
     def setUpClass(cls):
         load_dotenv()
