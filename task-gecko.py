@@ -49,9 +49,11 @@ login_btn.click()
 driver.implicitly_wait(5)
 
 try:
-    xpath = '//*[@id="single-spa-application:@kenyaemr/esm-login-app-page-0"]/div/div[1]/div[1]/div/div/div/div[2]'
+    # xpath = '//*[@id="single-spa-application:@kenyaemr/esm-login-app-page-0"]/div/div[1]/div[1]/div/div/div/div[2]'
     error_msg = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, xpath))).get_attribute("innerText")
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, ".cds--inline-notification__subtitle")
+        )).get_attribute("innerText")
     error_msg = error_msg.strip()
 
     # Confirm whether error message text is for invalid username or password
